@@ -16,6 +16,7 @@ theme = "m10c"
 [params]
   author = 'Steve Cross'
   description = 'umm... nerd?'
+  subtitle = 'meow?'
   #avatar = 'Path of file containing the author avatar image'
   menu_item_separator = '/'
 

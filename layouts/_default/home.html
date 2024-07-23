@@ -8,16 +8,37 @@
     <div class="home-page-content">
     </div>
     <div>
-      {{ range first 10 .Site.RegularPages }}
-      <a class="posts-list-item-title" href="{{ .Permalink }}"><h1>{{ .Title }}</h1></a>
-        <span class="posts-list-item-description">
-          {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
-          {{ .PublishDate.Format "Jan 2, 2006" }}
-          <span class="posts-list-item-separator">-</span>
-          {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
-          {{ .ReadingTime }} min read
-        </span>
-        {{ .Content }}
+      {{ with .Site.GetPage "about-me" }}
+      <h1>{{ .Title }}</h1>
+        <div>
+          <span>
+            {{ .Content }}
+          </span>
+        </div>
+      {{ end }}
+    </div>
+    <br />
+    <h1>Recent Posts</h1>
+    <hr />
+    <div>
+      {{ range where .Site.RegularPages "Section" "posts" }}
+      <h2>{{ .Title }}</h2>
+        <div>
+          <span class="posts-list-item-description">
+            {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
+            {{ .PublishDate.Format "Jan 2, 2006" }}
+            <span class="posts-list-item-separator">-</span>
+            {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
+            {{ .ReadingTime }} min read
+          </span>
+          <span>
+            {{ .Summary }}
+          </span>
+        </div>
+        <div>
+          <br />
+          <a class="posts-list-item-title" href="{{ .Permalink }}">Continue reading full article...</a>
+        </div>
         <hr />
       {{ end }}
     </div>
