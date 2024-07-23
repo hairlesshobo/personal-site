@@ -1,0 +1,48 @@
+baseURL = 'https://www.foxhollow.cc/'
+languageCode = 'en-us'
+title = 'Steve Cross'
+theme = "m10c"
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About Me"
+    url = "/about-me"
+  [[menu.main]]
+    identifier = "homelab"
+    name = "Home Lab"
+    url = "/home-lab"
+
+[params]
+author = 'Steve Cross'
+description = 'umm... nerd?'
+#avatar = 'Path of file containing the author avatar image'
+#menu_item_separator = 'Separator between each menu item. HTML allowed (default: " - “)'
+#favicon = 'Absolute path of your favicon.ico file (default: “/favicon.ico”)'
+
+  [[params.social]]
+    icon = "github"
+    name = "Github"
+    url = "https://github.com/hairlesshobo"
+
+  [[params.social]]
+    icon = "linkedin"
+    name = "Linkedin Profile"
+    url = "https://www.linkedin.com/in/steveacross/"
+
+  [[params.social]]
+    icon = "astrobin"
+    name = "Astrobin"
+    url = "https://www.astrobin.com/users/hairlesshobo/"
+
+  [params.style]
+    darkestColor = "#091a28"
+    #darkColor = "#212121"
+    #lightColor = "#f5e3e0"
+    #lightestColor = "#f5f5f5"
+    primaryColor = "#e17e2d"
+
+# TODO: make this work
+# [module]
+#   [[module.imports]]
+#     path = 'github.com/hugomods/images'
