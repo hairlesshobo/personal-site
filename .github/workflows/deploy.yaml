@@ -32,6 +32,7 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           port: ${{ secrets.DEPLOY_PORT }}
           key: ${{ secrets.DEPLOY_KEY }}
+          rm: true
           strip_components: 1
           source: "public/*"
           target: "test/"
