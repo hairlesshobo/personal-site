@@ -14,11 +14,10 @@ theme = "m10c"
     url = "/home-lab"
 
 [params]
-author = 'Steve Cross'
-description = 'umm... nerd?'
-#avatar = 'Path of file containing the author avatar image'
-#menu_item_separator = 'Separator between each menu item. HTML allowed (default: " - “)'
-#favicon = 'Absolute path of your favicon.ico file (default: “/favicon.ico”)'
+  author = 'Steve Cross'
+  description = 'umm... nerd?'
+  #avatar = 'Path of file containing the author avatar image'
+  menu_item_separator = '/'
 
   [[params.social]]
     icon = "github"
@@ -31,9 +30,14 @@ description = 'umm... nerd?'
     url = "https://www.linkedin.com/in/steveacross/"
 
   [[params.social]]
-    icon = "astrobin"
+    icon = "sunset"
     name = "Astrobin"
     url = "https://www.astrobin.com/users/hairlesshobo/"
+
+  [[params.social]]
+    icon = "radio"
+    name = "Amateur Radio Site"
+    url = "https://www.kn4goi.net/"
 
   [params.style]
     darkestColor = "#091a28"
