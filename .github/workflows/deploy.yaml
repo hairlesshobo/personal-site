@@ -32,8 +32,9 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           port: ${{ secrets.DEPLOY_PORT }}
           key: ${{ secrets.DEPLOY_KEY }}
+          strip_components: 1
           source: "public/*"
-          target: "test"
+          target: "test/"
 
       # - name: Deploy
       #   uses: peaceiris/actions-gh-pages@v3
