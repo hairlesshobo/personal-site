@@ -41,10 +41,10 @@ theme = "m10c"
     url = "https://www.kn4goi.net/"
 
   [params.style]
-    darkestColor = "#091a28"
-    #darkColor = "#212121"
-    #lightColor = "#f5e3e0"
-    #lightestColor = "#f5f5f5"
+    darkestColor = "#061019"
+    darkColor = "#0e2233"
+    lightColor = "#bbc0ca"
+    lightestColor = "#e79755"
     primaryColor = "#e17e2d"
 
 [module]
