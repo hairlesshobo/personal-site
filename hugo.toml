@@ -2,23 +2,47 @@ baseURL = 'https://www.foxhollow.cc/'
 languageCode = 'en-us'
 title = 'Steve Cross'
 theme = "m10c"
+enableGitInfo = true
+
+[frontmatter]
+  date = ["date", "publishDate", "lastmod"]
+  lastmod = ["lastmod", ":git", "date", "publishDate"]
+  publishDate = ["publishDate", "date"]
+  expiryDate = ["expiryDate"]
+
+[related]
+  includeNewer = true
+  threshold = 20
+  toLower = false
 
 [menu]
   [[menu.main]]
     identifier = "about"
     name = "About Me"
     url = "/about-me"
+    # [menu.main.params]
+    #   icon = "user"
+
   [[menu.main]]
     identifier = "homelab"
     name = "Home Lab"
     url = "/home-lab"
+    # [menu.main.params]
+    #   icon = "server"
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags"
+    # [menu.main.params]
+    #   icon = "list"
 
 [params]
   author = 'Steve Cross'
-  description = 'umm... nerd?'
+  description = 'Infrastructure and Linux Enthusiast'
   subtitle = 'meow?'
   #avatar = 'Path of file containing the author avatar image'
-  menu_item_separator = '/'
+  menu_item_separator = '<br />'
 
   [[params.social]]
     icon = "github"

@@ -1,0 +1,67 @@
+{{ define "main" }}
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">{{ .Title }}</h1>
+      <div class="post-meta">
+        {{ partial "date.html" . }}
+        {{- if ne .Type "page" }}
+          <div>
+            {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
+            {{ .ReadingTime }} min read
+          </div>
+          {{- with .Params.tags }}
+          <div>
+            {{ partial "icon.html" (dict "ctx" $ "name" "tag") }}
+            {{- range . -}}
+              {{ with $.Site.GetPage (printf "/%s/%s" "tags" . ) }}
+                <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
+              {{- end }}
+            {{- end }}
+          </div>
+          {{- end }}
+        {{- end }}
+      </div>
+    </header>
+    <div class="post-content">
+      {{ .Content }}
+    </div>
+    {{ $related := .Site.RegularPages.Related . | first 5 }}
+    {{ with $related }}
+      <h3>See Also</h3>
+      <ul>
+      {{ range . }}
+        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+      {{ end }}
+      </ul>
+    {{ end }}
+
+
+    <div class="post-footer">
+      {{- if eq .Type "page" }}
+        {{ $posts := where .Site.Pages "Section" "posts" }}
+        {{ $firsttag := index .Params.tags 0 }}
+        {{ $taggedContent := (index .Site.Taxonomies.tags (lower $firsttag)).Pages }}
+        {{ $pages := intersect $posts $taggedContent}}
+
+        {{ with $pages }}
+          <hr />
+          <h3>Related Posts</h3>
+          <ul>
+          {{ range first 5 $pages }}
+            <li>
+                <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
+                <span class="posts-list-item-description">
+                  {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
+                  {{ .PublishDate.Format "Jan 2, 2006" }}
+                  <span class="posts-list-item-separator">-</span>
+                  {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
+                  {{ .ReadingTime }} min read
+                </span>
+              </li>
+          {{ end }}
+          </ul>
+        {{ end }}
+      {{- end }}
+    </div>
+  </article>
+{{ end }}

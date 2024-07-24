@@ -1,0 +1,12 @@
+{{ $date := .Date.Format "2006.02.01" }}
+{{ $lastmod := .Lastmod.Format "2006.02.01" }}
+
+<div>
+    {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
+    Published {{ .PublishDate.Format "Jan 2, 2006" }}
+    {{ if ne $lastmod $date }}
+        -- last updated {{ .Lastmod.Format "Jan 2, 2006" }}
+    {{ end }}
+</div>
+
+
