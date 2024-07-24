@@ -3,7 +3,7 @@ name: Deploy Hugo Site
 on:
   push:
     branches:
-      - main
+      - gha-2
 
 jobs:
   deploy:
@@ -25,14 +25,13 @@ jobs:
       - name: Build
         run: hugo --minify
 
-      - name: Deploy via SCP
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy via rsync
+        uses: burnett01/rsync-deployments@7.0.1
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          port: ${{ secrets.DEPLOY_PORT }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          rm: true
-          strip_components: 1
-          source: "public/*"
-          target: "www/"
+          switches: -rltpv --delete
+          path: public/
+          remote_path: ${{ secrets.DEPLOY_PATH }}
+          remote_host: ${{ secrets.DEPLOY_HOST }}
+          remote_port: ${{ secrets.DEPLOY_PORT }}
+          remote_user: ${{ secrets.DEPLOY_USER }}
+          remote_key: ${{ secrets.DEPLOY_KEY }}
