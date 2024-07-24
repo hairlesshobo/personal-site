@@ -17,3 +17,15 @@ pre:has(code.language-warning) {
         color: $light-color;
     }
 }
+
+pre:has(code.language-note) {
+    border-color: #eaff00;
+    background-color: #484400;
+    font-weight: bold;
+
+    white-space: pre-wrap;
+
+    code {
+        color: $light-color;
+    }
+}

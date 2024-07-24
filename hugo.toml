@@ -69,7 +69,7 @@ enableGitInfo = true
   author = 'Steve Cross'
   description = 'Infrastructure and Linux Enthusiast'
   subtitle = 'meow?'
-  #avatar = 'Path of file containing the author avatar image'
+  avatar = 'profile_photo.png'
   menu_item_separator = '<br />'
 
   [[params.social]]

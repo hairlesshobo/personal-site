@@ -22,6 +22,7 @@
         {{- end }}
       </div>
     </header>
+    {{ .TableOfContents }}
     <div class="post-content">
       {{ .Content }}
     </div>
@@ -38,7 +39,7 @@
 
       {{ with $pages }}
         <hr />
-        <h3>Related Pages</h3>
+        <h3 id="related-pages">Related Pages</h3>
         <ul>
         {{ range first 5 $pages }}
           <li>
