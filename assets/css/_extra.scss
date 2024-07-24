@@ -29,3 +29,10 @@ pre:has(code.language-note) {
         color: $light-color;
     }
 }
+
+div.app-header-social > a > img {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.125em;
+}
