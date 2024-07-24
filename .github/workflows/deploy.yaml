@@ -3,7 +3,7 @@ name: Deploy Hugo Site
 on:
   push:
     branches:
-      - gha-2
+      - main
 
 jobs:
   deploy:
