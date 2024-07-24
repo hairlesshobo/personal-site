@@ -3,8 +3,6 @@ name: Deploy Hugo Site
 on:
   push:
     branches:
-    # TODO: revert before PR
-    #  - main
       - gha-2
 
 jobs:
