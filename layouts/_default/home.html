@@ -10,18 +10,17 @@
     <div>
       {{ with .Site.GetPage "about-me" }}
       <h1>{{ .Title }}</h1>
-        <div>
-          <span>
-            {{ .Content }}
-          </span>
-        </div>
+        <span>
+          {{ .Summary }}
+        </span>
+        <br />
+        <a class="posts-list-item-title" href="{{ .Permalink }}">Read more...</a>
       {{ end }}
     </div>
-    <br />
     <h1>Recent Posts</h1>
     <hr />
     <div>
-      {{ range where .Site.RegularPages "Section" "posts" }}
+      {{ range where .Site.RegularPages.ByPublishDate.Reverse "Section" "posts" }}
       <h2>{{ .Title }}</h2>
         <div>
           <span class="posts-list-item-description">

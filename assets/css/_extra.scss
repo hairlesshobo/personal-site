@@ -1,0 +1,19 @@
+code {
+    color: #d22778;
+}
+
+div.highlight > * > code {
+    color: inherit;
+}
+
+pre:has(code.language-warning) {
+    border-color: #FF0000;
+    background-color: #ff000074;
+    font-weight: bold;
+
+    white-space: pre-wrap;
+
+    code {
+        color: $light-color;
+    }
+}
