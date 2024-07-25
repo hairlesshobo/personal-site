@@ -9,14 +9,14 @@ summary = 'Steps I followed to bootstrap my new Kubernetes cluster'
 
 ## Overview
 
-This article will outline the process I followed to bootstrap a brand new Kubernetes cluster from scratch, and subsequently adding additional nodes to the cluster.
+At this point I have the plan in place and need to start building the individual nodes. This article will outline the process I followed to bootstrap a brand new Kubernetes cluster from scratch, and subsequently add additional nodes to the cluster.
 
 As my systems are all running vanilla Debian, the package manager commands will all be using `apt`. 
 
 ```warning
 WARNING:
 
-I am bad and use root for work like this instead of using sudo while working on personal systems, so you will need to `su -` to root before starting. For the record, I know this is bad practice and I only do this on personal servers. You should 100% use sudo on the commands below where appropriate instead.
+I am bad and use root for work like this on personal systems instead of using sudo, so you will need to `su -` to root before starting. For the record, I know this is bad practice and I only do this on personal servers. You should 100% use sudo on the commands below where appropriate instead.
 ```
 
 ## Prep The Node
@@ -29,7 +29,7 @@ Start off by updating apt package lists
 apt update
 ```
 
-Kubernetes requires an underlying container runtime. There are [multiple options](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) but I have decided to go with containerd for simplicity. To install containerd, you need to perform the following steps.
+Kubernetes requires an underlying container runtime. There are [multiple options](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) but for simplicity, I have decided to go with `containerd`. To install `containerd`, you need to perform the following steps.
 
 ```bash
 # Add prerequisites
@@ -183,6 +183,41 @@ The final step is technically optional and will possibly be configured outside o
 
 ## Bootstrap the new cluster
 
-This step is only required on one node because it is what creates the actual Kubernetes cluster. Subsequent nodes will be added to the cluster and require slightly different steps.
+This step is only required on the first node because it is what creates the actual Kubernetes cluster. Subsequent nodes will be added to the cluster and require slightly different steps, which will be described below.
+
+```note
+NOTE:
+
+The IP ranges I use below are what I chose to use for my network. You do NOT have to use the same range, so feel free to select a new range but be sure to take note of the ranges you select as you will need them later when configuring BGP routing. If you chose your own range, it is critical that the new range does NOT fall within any existing range that your network utilizes. I personally use 172.x.x.x ranges for my LAN ranges, so I chose 10.x.x.x ranges for Kube's use.
+```
+
+Since this command is a little involved, I will outline what each option is used for prior to showing the full command. A few of the parameters can be skipped if you don't need them in your environment.
+
+* `--control-plane-endpoint "kubeadm.internal.example.com:6443"` **Required** \
+  FQDN or IP address of the load balancer configured on OPNsense
+* `--upload-certs` **Required** \
+  Required when configuring multiple control plane nodes
+* `--pod-network-cidr=10.29.0.0/16` \
+  IP address range to use when assigning addresses to pods. This isn't technically required because Kube will provide a default range, but BGP routing is easier to setup later if you alreay define and know the range here.
+* `--service-cidr=10.32.0.0/12` \
+  IP address range to use for services
+* `--apiserver-advertise-address=192.168.1.49` \
+  If the host you are configuring as a kube node has multiple IP addresses, this can help ensure that Kube selects the correct IP address to bind the API server to
+* `--service-dns-domain=kube.internal.example.com` \
+  DNS domain name to use when assigning domains to services
+
+Run the following command to bootstrap the new cluster.
+
+```bash
+kubeadm init \
+  --control-plane-endpoint "kubeadm.internal.example.com:6443" \
+  --upload-certs \
+  --pod-network-cidr=10.29.0.0/16 \
+  --service-cidr=10.32.0.0/12 \
+  --apiserver-advertise-address=192.168.1.49 \
+  --service-dns-domain=kube.internal.example.com
+```
+
+This command will output a lot of useful information once it finishes running. **SAVE IT!** - you WILL need it later.
 
 More to follow...

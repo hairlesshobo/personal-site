@@ -36,3 +36,15 @@ div.app-header-social > a > img {
     height: 1em;
     margin-top: -0.125em;
 }
+
+table {
+    border-collapse: collapse;
+}
+
+table > tbody > tr > td,
+table > thead > tr > th {
+    border: 1px solid #494949;
+    margin: 0;
+    padding: 5px;
+}
+
