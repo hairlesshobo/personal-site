@@ -1,26 +1,39 @@
 {{ define "main" }}
   <main aria-role="main">
-    <header class="home-page-header">
-      {{ with .Params.subtitle }}
-        <span class="subtitle">{{ . }}</span>
-      {{ end }}
-    </header>
-    <div class="home-page-content">
-    </div>
+    {{ with .Params.subtitle }}
+      <span class="subtitle">{{ . }}</span>
+    {{ end }}
+
     <div>
       {{ with .Site.GetPage "about-me" }}
-      <h1>{{ .Title }}</h1>
+      <h1 class="section-header">{{ .Title }}</h1>
         <span>
           {{ .Summary }}
         </span>
-        <br />
-        <a class="posts-list-item-title" href="{{ .Permalink }}">Read more...</a>
+        <a class="read-more" href="{{ .Permalink }}">Read more...</a>
       {{ end }}
     </div>
-    <h1>Recent Posts</h1>
-    <hr />
+    
+    <br />
+    <br />
+    <h2 class="section-header">Latest Posts</h2>
     <div>
-      {{ range where .Site.RegularPages.ByPublishDate.Reverse "Section" "posts" }}
+      <ul class="posts-list">
+        {{ range where .Site.RegularPages.ByPublishDate.Reverse "Section" "posts" }}
+          <li class="posts-list-item">
+            <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
+            <span class="posts-list-item-description">
+              {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
+              {{ .PublishDate.Format "Jan 2, 2006" }}
+              <span class="posts-list-item-separator">-</span>
+              {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
+              {{ .ReadingTime }} min read
+            </span>
+            {{ .Summary }}
+          </li>
+        {{ end }}
+      </ul>
+      <!-- {{ range where .Site.RegularPages.ByPublishDate.Reverse "Section" "posts" }}
       <h2>{{ .Title }}</h2>
         <div>
           <span class="posts-list-item-description">
@@ -39,7 +52,7 @@
           <a class="posts-list-item-title" href="{{ .Permalink }}">Read full article...</a>
         </div>
         <hr />
-      {{ end }}
+      {{ end }} -->
     </div>
   </main>
 {{ end }}

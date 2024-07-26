@@ -45,23 +45,32 @@ enableGitInfo = true
 
 [menu]
   [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 10
+
+  [[menu.main]]
     identifier = "about"
     name = "About Me"
     url = "/about-me"
+    weight = 20
     # [menu.main.params]
     #   icon = "user"
 
   [[menu.main]]
     identifier = "homelab"
     name = "Home Lab"
-    url = "/home-lab"
+    url = "/tags/home-lab/"
+    weight = 30
     # [menu.main.params]
     #   icon = "server"
 
   [[menu.main]]
     identifier = "tags"
-    name = "Tags"
+    name = "All Tags"
     url = "/tags"
+    weight = 40
     # [menu.main.params]
     #   icon = "list"
 
@@ -92,9 +101,14 @@ enableGitInfo = true
     name = "Amateur Radio Site"
     url = "https://www.kn4goi.net/"
 
+  [[params.social]]
+    icon = "tokenring"
+    name = "The Token Ring webring"
+    url = "https://tokenring.monoxane.io/#foxhollow"
+
   [params.style]
-    darkestColor = "#061019"
-    darkColor = "#0e2233"
+    darkestColor = "#050a10"
+    darkColor = "#081016"
     lightColor = "#bbc0ca"
     lightestColor = "#e79755"
     primaryColor = "#e17e2d"

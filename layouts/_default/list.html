@@ -1,8 +1,22 @@
 {{ define "main" }}
-  <article>
-    <h1>{{ .Title }}</h1>
+  <!-- <article> -->
+    {{ $pages := where .Paginator.Pages "Type" "==" "page" }}
+
+    <h1 class="section-header">{{ .Title }}</h1>
+
+    {{ range $pages }}
+      <span>
+        {{ .Summary }}
+      </span>
+      <a class="read-more" href="{{ .Permalink }}">Read more...</a>
+    {{ end }}
+    {{- if ne (len $pages) 0 }}
+      <br />
+      <br />
+      <h2 class="section-header">Posts</h2>
+    {{- end }}
     <ul class="posts-list">
-      {{ range .Paginator.Pages }}
+      {{ range where .Paginator.Pages "Type" "!=" "page" }}
         <li class="posts-list-item">
           <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
           <span class="posts-list-item-description">
@@ -17,5 +31,5 @@
       {{ end }}
     </ul>
     {{ partial "pagination.html" $ }}
-  </article>
+  <!-- </article> -->
 {{ end }}

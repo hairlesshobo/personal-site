@@ -4,7 +4,7 @@ date = "2024-07-22"
 lastmod = "2024-07-24"
 tags = ['Home Lab']
 draft = false
-summary = 'Home lab overview'
+# summary = 'High-level overview of my home lab, with pictures!'
 +++
 
 My current home lab consists of 6 Linux servers, dual redundant OPNsense routers, 8 VLANS, an enterprise grade 10g fiber network, and countless containerized local services. I also operate my own email server, which is not nearly as simple to do as it used to be 15-20 years ago, but it is still a fun challenge! 
@@ -102,6 +102,7 @@ Pictures below show the current state of the lab. This is without a doubt the cl
 * Samba Windows AD server
 * TinyLLM chat bot
 * Woodpecker CI/CD runner
+* Zabbix
 
 ## ML Models
 

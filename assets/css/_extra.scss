@@ -1,3 +1,11 @@
+a:not(.app-header-social *) {
+    color: #e8ae84;
+}
+
+a:hover {
+    color: #f7ddca;
+}
+
 code {
     color: #d22778;
 }
@@ -6,9 +14,15 @@ div.highlight > * > code {
     color: inherit;
 }
 
+a.read-more {
+    display: block;
+    font-size: 1.2em;
+    margin: 1em 0 0 0;
+}
+
 pre:has(code.language-warning) {
-    border-color: #FF0000;
-    background-color: #ff000074;
+    border-color: #b40000;
+    background-color: #ab030374;
     font-weight: bold;
 
     white-space: pre-wrap;
@@ -19,8 +33,8 @@ pre:has(code.language-warning) {
 }
 
 pre:has(code.language-note) {
-    border-color: #eaff00;
-    background-color: #484400;
+    border-color: #a5b400;
+    background-color: #484400af;
     font-weight: bold;
 
     white-space: pre-wrap;
@@ -37,6 +51,10 @@ div.app-header-social > a > img {
     margin-top: -0.125em;
 }
 
+span.app-header-title {
+    color: $primary-color;
+}
+
 table {
     border-collapse: collapse;
 }
@@ -48,3 +66,39 @@ table > thead > tr > th {
     padding: 5px;
 }
 
+.post-title {
+  font-size: 2em;
+  line-height: 1.5em;
+  margin-bottom: 0px !important;
+  font-weight: bold;
+}
+
+h1.section-header,
+h2.section-header {
+  margin: 0;
+  margin-bottom: 3px;
+  padding-bottom: -3px;
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid $lightest-color;
+}
+
+hr.section-header {
+  margin: 0;
+}
+
+ul.posts-list {
+    margin: 0;
+}
+
+a.posts-list-item-title {
+    font-size: 1.25em;
+}
+
+li.posts-list-item {
+    padding: 14px 0;
+}
+
+.app-header-avatar {
+    border: 0.4rem solid rgba($primary-color, 0.4);
+  }

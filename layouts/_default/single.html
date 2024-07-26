@@ -1,7 +1,7 @@
 {{ define "main" }}
-  <article class="post">
+  <!-- <article class="post"> -->
     <header class="post-header">
-      <h1 class ="post-title">{{ .Title }}</h1>
+      <h1 class="section-header">{{ .Title }}</h1>
       <div class="post-meta">
         {{ partial "date.html" . }}
         {{- if ne .Type "page" }}
@@ -23,6 +23,7 @@
       </div>
     </header>
     {{ .TableOfContents }}
+
     <div class="post-content">
       {{ .Content }}
     </div>
@@ -38,9 +39,24 @@
       {{- end }}
 
       {{ with $pages }}
-        <hr />
-        <h3 id="related-pages">Related Pages</h3>
-        <ul>
+        <br />
+        <h2 class="section-header">Related Posts</h2>
+        <ul class="posts-list">
+          {{ range first 5 $pages }}
+            <li class="posts-list-item">
+              <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
+              <span class="posts-list-item-description">
+                {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
+                {{ .PublishDate.Format "Jan 2, 2006" }}
+                <span class="posts-list-item-separator">-</span>
+                {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
+                {{ .ReadingTime }} min read
+              </span>
+              {{ .Summary }}
+            </li>
+          {{ end }}
+        </ul>
+        <!-- <ul>
         {{ range first 5 $pages }}
           <li>
               <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
@@ -53,8 +69,8 @@
               </span>
             </li>
         {{ end }}
-        </ul>
+        </ul> -->
       {{ end }}
     </div>
-  </article>
+  <!-- </article> -->
 {{ end }}
