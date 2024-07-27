@@ -7,10 +7,10 @@ a:hover {
 }
 
 code {
-    color: #d22778;
+    color: #a93d6f;
 }
 
-div.highlight > * > code {
+pre.chroma > code {
     color: inherit;
 }
 
@@ -55,16 +55,16 @@ span.app-header-title {
     color: $primary-color;
 }
 
-table {
-    border-collapse: collapse;
-}
+// table {
+//     border-collapse: collapse;
+// }
 
-table > tbody > tr > td,
-table > thead > tr > th {
-    border: 1px solid #494949;
-    margin: 0;
-    padding: 5px;
-}
+// table > tbody > tr > td,
+// table > thead > tr > th {
+//     border: 1px solid #494949;
+//     margin: 0;
+//     padding: 5px;
+// }
 
 .post-title {
   font-size: 2em;
@@ -81,6 +81,13 @@ h2.section-header {
   display: block;
   width: 100%;
   border-bottom: 1px solid $lightest-color;
+}
+
+
+h2:not(.section-header) {
+    margin-top: 1.75em;
+    margin-bottom: -0.5em;
+    padding-bottom: -3px;
 }
 
 hr.section-header {
@@ -102,3 +109,6 @@ li.posts-list-item {
 .app-header-avatar {
     border: 0.4rem solid rgba($primary-color, 0.4);
   }
+
+
+@import 'syntax';

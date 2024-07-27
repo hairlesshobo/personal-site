@@ -22,7 +22,11 @@
         {{- end }}
       </div>
     </header>
-    {{ .TableOfContents }}
+
+    {{ if ne .Params.toc false }}
+    <h2>Table of Contents</h2>
+      {{ .TableOfContents }}
+    {{ end }}
 
     <div class="post-content">
       {{ .Content }}

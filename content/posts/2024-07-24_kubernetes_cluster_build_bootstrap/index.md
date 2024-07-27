@@ -1,6 +1,8 @@
 +++
-title = 'Bare metal Kubernetes Cluster: Bootstrap [WIP]'
+title = 'Bare-metal Kubernetes - Part 2: Bootstrap'
+slug = 'kube-cluster-bootstrap'
 date = "2024-07-24"
+lastmod = "2024-07-27"
 draft = false
 tags = ['home lab']
 keywords = ['Kubernetes Cluster Build']
@@ -9,7 +11,9 @@ summary = 'Steps I followed to bootstrap my new Kubernetes cluster'
 
 ## Overview
 
-At this point I have the plan in place and need to start building the individual nodes. This article will outline the process I followed to bootstrap a brand new Kubernetes cluster from scratch, and subsequently add additional nodes to the cluster.
+In the [previous article](/posts/kube-cluster-overview), I laid out the requirements and plan for my Kubernetes cluster build.
+
+This article will outline the process I followed to bootstrap a brand new Kubernetes cluster from scratch, and subsequently add additional nodes to the cluster.
 
 As my systems are all running vanilla Debian, the package manager commands will all be using `apt`. 
 
@@ -55,7 +59,7 @@ sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.t
 systemctl restart containerd
 ```
 
-Now we need to install `kubeadm`, `kubelet`, and `kubectl`. 
+Now to install `kubeadm`, `kubelet`, and `kubectl`. 
 
 `kubeadm` is used for bootstrapping new clusters and adding nodes to an existing cluster, `kubelet` is the actual daemon that runs on the server to run containers, and `kubectl` is used to interact with a running kube cluster.
 
@@ -70,7 +74,7 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 apt update
 apt install -y kubelet kubeadm kubectl
 
-# kubernetes should always be manually updated, so we tell apt not to update these packages any time others are updated
+# kubernetes should always be manually updated, so I tell apt not to update these packages any time others are updated
 apt-mark hold kubelet kubeadm kubectl
 
 # enable the kubelet
@@ -128,6 +132,13 @@ You can technically skip this step, but I still like to manually pull the kube i
 # pull the kube images (this isn't strictly required, but )
 kubeadm config images pull
 ```
+
+### Shortcuts
+If you have already prepped OPNsense, likely because you are following this section again, you can easily skip ahead to the following sections:
+
+- [Add additional control-plane nodes](#add-additional-control-plane-nodes)
+- [Add worker nodes](#add-worker-nodes)
+
 
 ## Prepare OPNsense
 
@@ -218,6 +229,109 @@ kubeadm init \
   --service-dns-domain=kube.internal.example.com
 ```
 
-This command will output a lot of useful information once it finishes running. **SAVE IT!** - you WILL need it later.
+This command will output a lot of useful information once it finishes running. **SAVE IT!** - you WILL need it later. 
 
-More to follow...
+Example output:
+
+```plain
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+You can now join any number of the control-plane node running the following command on each as root:
+
+  kubeadm join kubeadm.internal.example.com:6443 --token xtuiiu.14dd7db013f44672 \
+	--discovery-token-ca-cert-hash sha256:f22fad490b424613bed4e276b8e9d4f1e0ef0dd4744b48cbab9638b08da37971 \
+	--control-plane --certificate-key 64680a7065e441dc8f458e9c04e006c9fddc177aac7248159f2b8a7f1f602764
+
+Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use
+"kubeadm init phase upload-certs --upload-certs" to reload certs afterward.
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join kubeadm.internal.example.com:6443 --token xtuiiu.wyyqjj7rgve65yd0 \
+	--discovery-token-ca-cert-hash sha256:f22fad490b424613bed4e276b8e9d4f1e0ef0dd4744b48cbab9638b08da37971
+```
+
+The most important bit above is the part that says "You can now join any number of the control-plane node running the following command..." as it shows you the command you will need below to add an additional control plane to the cluster.
+
+```note
+NOTE:
+
+If you read the output above, it says the following:
+
+Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use
+"kubeadm init phase upload-certs --upload-certs" to reload certs afterward.
+
+Ideally, if you intend to add additional nodes, now is the best time to do it. You can do it later, but it requires extra steps.
+```
+
+## Add additional control-plane nodes
+
+For any additional nodes you desire to add, you will need to perform the following:
+
+- Follow the steps outlined above to [prep the node](#prep-the-node), just as you did for the first node
+- Run the command that was output from the `kubeadm init` command above on the new node, for example:
+```bash
+kubeadm join kubeadm.internal.example.com:6443 --token xtuiiu.14dd7db013f44672 \
+	--discovery-token-ca-cert-hash sha256:f22fad490b424613bed4e276b8e9d4f1e0ef0dd4744b48cbab9638b08da37971 \
+	--control-plane --certificate-key 64680a7065e441dc8f458e9c04e006c9fddc177aac7248159f2b8a7f1f602764
+```
+
+## Add worker nodes
+
+If you plan to build out a cluster larger than what I am (3x systems only, you will likely not want to make ALL of the systems operate as control planes. In order to add one or more worker nodes, the following steps apply.
+
+- Follow the steps outlined above to [prep the node](#prep-the-node), just as you did for the first node
+- Run the command that was output from the `kubeadm init` command above on the new node, for example:
+```bash
+kubeadm join kubeadm.internal.example.com:6443 --token xtuiiu.wyyqjj7rgve65yd0 \
+	--discovery-token-ca-cert-hash sha256:f22fad490b424613bed4e276b8e9d4f1e0ef0dd4744b48cbab9638b08da37971
+```
+
+## Finishing up
+
+Once you have created your cluster, you will use `kubectl` to interact with and manage it. Access to the kube cluster, by default, is granted with a file that was created on the first control plane node when you initalized the cluster. If you only intend to manage Kubernetes from the first control plane, then you just need to set the `KUBECONFIG` environment variable in the shell to point to the file:
+
+```bash
+export KUBECONFIG="/etc/kubernetes/admin.conf"
+```
+
+As this file can only be read by the root user, it would need to be copied and ownership changed if you intend to access kube from a non-root user. You can also add this line to your shell profile so that the environment variable is set at login, but I will leave that as an excercise for you to figure out on your own. :)
+
+```warning
+WARNING:
+
+The file located at /etc/kubernetes/admin.conf is essentially a root key for the entire kubernetes cluster. You MUST protect this file and ensure that it isn't readable by non-privileged users. Someone on your network with that file has 100% access to your kube cluster. You've been warned.
+```
+
+The next step is optional if you chose to build a cluster that contains proper worker nodes. I did not choose to build such a cluster, so this is the process I had to follow. 
+
+A bit of info for you here is that Kubernetes, by default, will not schedule pods on control plane nodes. This is done to ensure stability of the control plane nodes themselves. This is controlled by a [taint](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) that is placed on all control planes. 
+
+In order for pods to be scheduled on control planes, you have to remove the taint. Thankfully, this is simple:
+
+```bash
+export KUBECONFIG="/etc/kubernetes/admin.conf"
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+```
+
+## Summary
+
+At this point, I have a running Kubernetes cluster with one or more control plane and/or worker nodes. 
+
+In the [next article](/posts/kube-cluster-networking), I will be setting up the network provider (CNI) and configuring OPNsense for BGP routing.

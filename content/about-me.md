@@ -2,6 +2,7 @@
 title = 'About Me'
 date = 2024-07-23T08:43:59-04:00
 draft = false
+include_toc = false
 +++
 
 My name is Steve, also known online as hairlesshobo, and on amateur radio my call sign is KN4GOI. I am a mid 30s married father of four kids, ages 5 through 12, who loves to tinker and I honestly have more hobbies than I even know what to do with. Without a doubt my biggest hobby has always been computers, and anything to do with computers. I started building computers at 7, coding Perl at 10, and I built my first Linux server when I was 11 (I even remember the hardware I used to build it, maybe I will write a post about it one day) and have had at least one personal server running 24/7 since that very first system. 
