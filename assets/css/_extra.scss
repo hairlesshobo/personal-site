@@ -98,8 +98,14 @@ ul.posts-list {
     margin: 0;
 }
 
+span.posts-list-item-this-page,
 a.posts-list-item-title {
     font-size: 1.25em;
+}
+
+span.posts-list-item-this-page {
+    font-weight: bold;
+    color: #d85f5f;
 }
 
 li.posts-list-item {
@@ -110,5 +116,8 @@ li.posts-list-item {
     border: 0.4rem solid rgba($primary-color, 0.4);
   }
 
+.post-meta > div {
+    margin-bottom: 4px;
+}
 
 @import 'syntax';

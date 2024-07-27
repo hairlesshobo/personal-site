@@ -1,6 +1,6 @@
 baseURL = 'https://www.foxhollow.cc/'
 languageCode = 'en-us'
-title = 'Steve Cross'
+title = 'Infrastructure and Linux Enthusiast | Steve Cross'
 theme = "m10c"
 enableGitInfo = true
 
@@ -10,38 +10,26 @@ enableGitInfo = true
   publishDate = ["publishDate", "date"]
   expiryDate = ["expiryDate"]
 
-[related]
-  includeNewer = true
-  threshold = 80
-  toLower = false
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ''
+    hl_inline = false
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = false
+    noHl = false
+    style = 'fruity'
+    tabWidth = 4
 
-  [[related.indices]]
-    applyFilter = false
-    cardinalityThreshold = 0
-    name = 'keywords'
-    pattern = ''
-    toLower = false
-    type = 'basic'
-    weight = 100
-
-  [[related.indices]]
-    applyFilter = false
-    cardinalityThreshold = 0
-    name = 'date'
-    pattern = ''
-    toLower = false
-    type = 'basic'
-    weight = 10
-    
-  [[related.indices]]
-    applyFilter = false
-    cardinalityThreshold = 0
-    name = 'tags'
-    pattern = ''
-    toLower = false
-    type = 'basic'
-    weight = 80
-
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2
 
 [menu]
   [[menu.main]]
@@ -74,12 +62,18 @@ enableGitInfo = true
     # [menu.main.params]
     #   icon = "list"
 
+[module]
+  [[module.imports]]
+    path = 'github.com/hugomods/images'
+
 [params]
   author = 'Steve Cross'
+  header_title = 'Steve Cross'
   description = 'Infrastructure and Linux Enthusiast'
   subtitle = 'meow?'
   avatar = 'profile_photo.png'
   menu_item_separator = '<br />'
+  keywords = ['Steve Cross', 'hairlesshobo', 'foxhollow', 'self hosted']
 
   [[params.social]]
     icon = "github"
@@ -113,28 +107,40 @@ enableGitInfo = true
     lightestColor = "#e79755"
     primaryColor = "#e17e2d"
 
-[module]
-  [[module.imports]]
-    path = 'github.com/hugomods/images'
+[related]
+  includeNewer = true
+  threshold = 80
+  toLower = false
 
-[markup]
+  [[related.indices]]
+    applyFilter = false
+    cardinalityThreshold = 0
+    name = 'keywords'
+    pattern = ''
+    toLower = false
+    type = 'basic'
+    weight = 100
 
-  [markup.highlight]
-    anchorLineNos = false
-    codeFences = true
-    guessSyntax = false
-    hl_Lines = ''
-    hl_inline = false
-    lineAnchors = ''
-    lineNoStart = 1
-    lineNos = false
-    lineNumbersInTable = true
-    noClasses = false
-    noHl = false
-    style = 'fruity'
-    tabWidth = 4
+  [[related.indices]]
+    applyFilter = false
+    cardinalityThreshold = 0
+    name = 'date'
+    pattern = ''
+    toLower = false
+    type = 'basic'
+    weight = 10
+    
+  [[related.indices]]
+    applyFilter = false
+    cardinalityThreshold = 0
+    name = 'tags'
+    pattern = ''
+    toLower = false
+    type = 'basic'
+    weight = 80
 
-  [markup.tableOfContents]
-    endLevel = 3
-    ordered = false
-    startLevel = 2
+[taxonomies]
+  category = 'categories'
+  series = 'series'
+  tag = 'tags'
+

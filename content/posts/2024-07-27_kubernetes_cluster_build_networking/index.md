@@ -3,8 +3,9 @@ title = 'Bare-metal Kubernetes - Part 3: Networking [WIP]'
 slug = 'kube-cluster-networking'
 date = "2024-07-27"
 draft = false
-tags = ['home lab']
-keywords = ['Kubernetes Cluster Build']
+tags = ['home lab', 'kubernetes', 'self hosted']
+series = ["Bare-metal Kubernetes"]
+keywords = ['home lab', 'kubernetes', 'self hosted']
 summary = 'How to enable networking with BGP support via OPNsense on my bare-meteal Kubernetes cluster'
 +++
 

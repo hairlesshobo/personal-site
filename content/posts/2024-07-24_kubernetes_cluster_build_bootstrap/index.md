@@ -4,8 +4,9 @@ slug = 'kube-cluster-bootstrap'
 date = "2024-07-24"
 lastmod = "2024-07-27"
 draft = false
-tags = ['home lab']
-keywords = ['Kubernetes Cluster Build']
+tags = ['home lab', 'kubernetes', 'self hosted']
+series = ["Bare-metal Kubernetes"]
+keywords = ['home lab', 'kubernetes', 'self hosted']
 summary = 'Steps I followed to bootstrap my new Kubernetes cluster'
 +++
 

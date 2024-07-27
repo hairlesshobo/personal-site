@@ -19,6 +19,17 @@
             {{- end }}
           </div>
           {{- end }}
+
+          {{- with .Params.series }}
+          <div>
+            {{ partial "icon.html" (dict "ctx" $ "name" "book-open") }}
+            {{- range . -}}
+              {{ with $.Site.GetPage (printf "/%s/%s" "series" . ) }}
+                <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
+              {{- end }}
+            {{- end }}
+          </div>
+          {{- end }}
         {{- end }}
       </div>
     </header>
@@ -33,22 +44,38 @@
     </div>
 
     <div class="post-footer">
+      <!-- Default RelatedPages functionality provided by Hugo -->
       {{ $pages := .Site.RegularPages.Related . | first 5 }}
 
+      <!-- If we are currently on a page, we look for posts that share the same first tag as the page -->
       {{- if eq .Type "page" }}
         {{ $posts := where .Site.Pages "Section" "posts" }}
         {{ $firsttag := index .Params.tags 0 }}
         {{ $taggedContent := (index .Site.Taxonomies.tags (lower $firsttag)).Pages }}
         {{ $pages = intersect $posts $taggedContent}}
+
+      <!-- If we are in a series, we look for all posts in the series -->
+      {{- else }}
+        {{ if .Params.series }}
+          {{ $posts := where .Site.Pages "Section" "posts" }}
+          {{ $series := index .Params.series 0 }}
+          {{ $seriesContent := (index .Site.Taxonomies.series (lower $series)).Pages }}
+          {{ $pages = intersect $posts $seriesContent}}
+        {{ end }}
       {{- end }}
 
+      {{ $outer_page := . }}
       {{ with $pages }}
         <br />
         <h2 class="section-header">Related Posts</h2>
         <ul class="posts-list">
           {{ range first 5 $pages }}
             <li class="posts-list-item">
-              <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
+              {{ if eq $outer_page . }}
+                <!-- <span class="posts-list-item-this-page">  &gt;&gt; This Page &lt;&lt;</span> -->
+                <span class="posts-list-item-this-page">This Page: </span>
+              {{ end }}
+              <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a> 
               <span class="posts-list-item-description">
                 {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
                 {{ .PublishDate.Format "Jan 2, 2006" }}

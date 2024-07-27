@@ -3,8 +3,9 @@ title = 'Bare-metal Kubernetes - Part 1: Overview'
 slug = 'kube-cluster-overview'
 date = "2024-07-23"
 draft = false
-tags = ['home lab']
-keywords = ['Kubernetes Cluster Build']
+tags = ['home lab', 'kubernetes', 'self hosted']
+series = ["Bare-metal Kubernetes"]
+keywords = ['home lab', 'kubernetes', 'self hosted']
 summary = 'The overview of my plan to build a bare-metel Kubernetes cluster in the home lab'
 +++
 
