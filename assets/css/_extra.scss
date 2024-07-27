@@ -79,6 +79,7 @@ h2.section-header {
   margin-bottom: 3px;
   padding-bottom: -3px;
   display: block;
+  line-height: 1em;
   width: 100%;
   border-bottom: 1px solid $lightest-color;
 }
@@ -96,6 +97,10 @@ hr.section-header {
 
 ul.posts-list {
     margin: 0;
+}
+
+ul.posts-list > li.posts-list-item:is(:first-child) {
+    padding-top: 2px;
 }
 
 span.posts-list-item-this-page,

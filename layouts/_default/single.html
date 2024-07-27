@@ -1,7 +1,7 @@
 {{ define "main" }}
   <!-- <article class="post"> -->
     <header class="post-header">
-      <h1 class="section-header">{{ .Title }}</h1>
+      <h1 class="section-header">{{ partial "page_title.html" . }}</h1>
       <div class="post-meta">
         {{ partial "date.html" . }}
         {{- if ne .Type "page" }}
@@ -33,6 +33,12 @@
         {{- end }}
       </div>
     </header>
+
+    {{ if eq .Draft true }}
+    <div class="post-content">
+      <pre><code class="language-note" data-lang="note">NOTE: This page is marked as draft and is therefore still a work-in-progress. </code></pre>
+    </div>
+    {{ end }}
 
     {{ if ne .Params.toc false }}
     <h2>Table of Contents</h2>
@@ -70,37 +76,9 @@
         <h2 class="section-header">Related Posts</h2>
         <ul class="posts-list">
           {{ range first 5 $pages }}
-            <li class="posts-list-item">
-              {{ if eq $outer_page . }}
-                <!-- <span class="posts-list-item-this-page">  &gt;&gt; This Page &lt;&lt;</span> -->
-                <span class="posts-list-item-this-page">This Page: </span>
-              {{ end }}
-              <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a> 
-              <span class="posts-list-item-description">
-                {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
-                {{ .PublishDate.Format "Jan 2, 2006" }}
-                <span class="posts-list-item-separator">-</span>
-                {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
-                {{ .ReadingTime }} min read
-              </span>
-              {{ .Summary }}
-            </li>
+            {{ partial "post_list_item.html" (dict "context" . "parent" $) }}
           {{ end }}
         </ul>
-        <!-- <ul>
-        {{ range first 5 $pages }}
-          <li>
-              <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
-              <span class="posts-list-item-description">
-                {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
-                {{ .PublishDate.Format "Jan 2, 2006" }}
-                <span class="posts-list-item-separator">-</span>
-                {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
-                {{ .ReadingTime }} min read
-              </span>
-            </li>
-        {{ end }}
-        </ul> -->
       {{ end }}
     </div>
   <!-- </article> -->

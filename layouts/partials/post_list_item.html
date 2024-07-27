@@ -1,0 +1,14 @@
+<li class="posts-list-item">
+  {{ if eq .context .parent }}
+    <span class="posts-list-item-this-page">This Page: </span>
+  {{ end }}
+  <a class="posts-list-item-title" href="{{ .context.Permalink }}">{{ partial "page_title.html" .context }}</a>
+  <span class="posts-list-item-description">
+    {{ partial "icon.html" (dict "ctx" .context "name" "calendar") }}
+    {{ .context.PublishDate.Format "Jan 2, 2006" }}
+    <span class="posts-list-item-separator">-</span>
+    {{ partial "icon.html" (dict "ctx" .context "name" "clock") }}
+    {{ .context.ReadingTime }} min read
+  </span>
+  {{ .context.Summary }}
+</li>

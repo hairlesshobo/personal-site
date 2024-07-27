@@ -3,6 +3,7 @@ languageCode = 'en-us'
 title = 'Infrastructure and Linux Enthusiast | Steve Cross'
 theme = "m10c"
 enableGitInfo = true
+buildDrafts = true
 
 [frontmatter]
   date = ["date", "publishDate", "lastmod"]
@@ -50,6 +51,14 @@ enableGitInfo = true
     identifier = "homelab"
     name = "Home Lab"
     url = "/tags/home-lab/"
+    weight = 30
+    # [menu.main.params]
+    #   icon = "server"
+
+  [[menu.main]]
+    identifier = "series"
+    name = "Post Series"
+    url = "/series/"
     weight = 30
     # [menu.main.params]
     #   icon = "server"

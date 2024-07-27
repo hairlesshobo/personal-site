@@ -2,7 +2,7 @@
   <!-- <article> -->
     {{ $pages := where .Paginator.Pages "Type" "==" "page" }}
 
-    <h1 class="section-header">{{ .Title }}</h1>
+    <h1 class="section-header">{{ partial "page_title.html" . }}</h1>
 
     {{ range $pages }}
       <span>
@@ -17,17 +17,7 @@
     {{- end }}
     <ul class="posts-list">
       {{ range where .Paginator.Pages "Type" "!=" "page" }}
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
-          <span class="posts-list-item-description">
-            {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
-            {{ .PublishDate.Format "Jan 2, 2006" }}
-            <span class="posts-list-item-separator">-</span>
-            {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
-            {{ .ReadingTime }} min read
-          </span>
-          {{ .Summary }}
-        </li>
+        {{ partial "post_list_item.html" (dict "context" . "parent" $) }}
       {{ end }}
     </ul>
     {{ partial "pagination.html" $ }}
