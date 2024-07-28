@@ -3,20 +3,30 @@
 
   <h1 class="section-header">{{ partial "page_title.html" . }}</h1>
 
-  {{ range $pages }}
+  {{ if eq .Type "series" }}
+    {{ .Description }}
+  {{ end }}
+
+  {{ range first 1 $pages }}
     <span>
       {{ .Summary }}
     </span>
     <a class="read-more" href="{{ .Permalink }}">Read more...</a>
   {{ end }}
-  {{- if ne (len $pages) 0 }}
+
+  {{- if or (ne (len $pages) 0) (eq .Type "series") }}
     <br />
     <br />
     <h2 class="section-header">Posts</h2>
   {{- end }}
 
-  {{ $pages := where .Paginator.Pages "Type" "!=" "page" }}
-  {{ partial "post_list.html" (dict "pages" $pages "parent" $) }}
+  {{ $posts := where .Paginator.Pages "Type" "!=" "page" }}
+  
+  <!-- If we are listing a series, reverse the order so it shows up in proper order -->
+  {{ if eq .Type "series" }}
+    {{ $posts = $posts | collections.Reverse }}
+  {{ end }}
+  {{ partial "post_list.html" (dict "pages" $posts "parent" $) }}
 
   {{ partial "pagination.html" $ }}
 {{ end }}

@@ -16,7 +16,7 @@
     
     <br />
     <br />
-    {{ $pages := where .Site.RegularPages.ByPublishDate.Reverse "Section" "posts" }}
+    {{ $pages := where .Site.RegularPages.ByPublishDate.Reverse "Section" "posts" | first 5 }}
     {{ partial "post_list.html" (dict "header" "Latest Posts" "pages" $pages "parent" $) }}
   </main>
 {{ end }}
