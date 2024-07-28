@@ -233,7 +233,7 @@ This command will output a lot of useful information once it finishes running. *
 
 Example output:
 
-```plain
+```plaintext
 Your Kubernetes control-plane has initialized successfully!
 
 To start using your cluster, you need to run the following as a regular user:
