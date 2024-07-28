@@ -1,85 +1,77 @@
 {{ define "main" }}
-  <!-- <article class="post"> -->
-    <header class="post-header">
-      <h1 class="section-header">{{ partial "page_title.html" . }}</h1>
-      <div class="post-meta">
-        {{ partial "date.html" . }}
-        {{- if ne .Type "page" }}
-          <div>
-            {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
-            {{ .ReadingTime }} min read
-          </div>
-          {{- with .Params.tags }}
-          <div>
-            {{ partial "icon.html" (dict "ctx" $ "name" "tag") }}
-            {{- range . -}}
-              {{ with $.Site.GetPage (printf "/%s/%s" "tags" . ) }}
-                <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
-              {{- end }}
+  <header class="post-header">
+    <h1 class="section-header">{{ partial "page_title.html" . }}</h1>
+    <div class="post-meta">
+      {{ partial "date.html" . }}
+      {{- if ne .Type "page" }}
+        <div>
+          {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
+          {{ .ReadingTime }} min read
+        </div>
+        {{- with .Params.tags }}
+        <div>
+          {{ partial "icon.html" (dict "ctx" $ "name" "tag") }}
+          {{- range . -}}
+            {{ with $.Site.GetPage (printf "/%s/%s" "tags" . ) }}
+              <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
             {{- end }}
-          </div>
           {{- end }}
-
-          {{- with .Params.series }}
-          <div>
-            {{ partial "icon.html" (dict "ctx" $ "name" "book-open") }}
-            {{- range . -}}
-              {{ with $.Site.GetPage (printf "/%s/%s" "series" . ) }}
-                <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
-              {{- end }}
-            {{- end }}
-          </div>
-          {{- end }}
+        </div>
         {{- end }}
-      </div>
-    </header>
 
-    {{ if eq .Draft true }}
-    <div class="post-content">
-      <pre><code class="language-note" data-lang="note">NOTE: This page is marked as draft and is therefore still a work-in-progress. </code></pre>
-    </div>
-    {{ end }}
-
-    {{ if ne .Params.toc false }}
-    <h2>Table of Contents</h2>
-      {{ .TableOfContents }}
-    {{ end }}
-
-    <div class="post-content">
-      {{ .Content }}
-    </div>
-
-    <div class="post-footer">
-      <!-- Default RelatedPages functionality provided by Hugo -->
-      {{ $pages := .Site.RegularPages.Related . | first 5 }}
-
-      <!-- If we are currently on a page, we look for posts that share the same first tag as the page -->
-      {{- if eq .Type "page" }}
-        {{ $posts := where .Site.Pages "Section" "posts" }}
-        {{ $firsttag := index .Params.tags 0 }}
-        {{ $taggedContent := (index .Site.Taxonomies.tags (lower $firsttag)).Pages }}
-        {{ $pages = intersect $posts $taggedContent}}
-
-      <!-- If we are in a series, we look for all posts in the series -->
-      {{- else }}
-        {{ if .Params.series }}
-          {{ $posts := where .Site.Pages "Section" "posts" }}
-          {{ $series := index .Params.series 0 }}
-          {{ $seriesContent := (index .Site.Taxonomies.series (lower $series)).Pages }}
-          {{ $pages = intersect $posts $seriesContent}}
-        {{ end }}
+        {{- with .Params.series }}
+        <div>
+          {{ partial "icon.html" (dict "ctx" $ "name" "book-open") }}
+          {{- range . -}}
+            {{ with $.Site.GetPage (printf "/%s/%s" "series" . ) }}
+              <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
+            {{- end }}
+          {{- end }}
+        </div>
+        {{- end }}
       {{- end }}
-
-      {{ $outer_page := . }}
-      {{ with $pages }}
-        <br />
-        <h2 class="section-header">Related Posts</h2>
-        <ul class="posts-list">
-          {{ range first 5 $pages }}
-            {{ partial "post_list_item.html" (dict "context" . "parent" $) }}
-          {{ end }}
-        </ul>
-      {{ end }}
     </div>
-  <!-- </article> -->
+  </header>
+
+  {{ if eq .Draft true }}
+  <div class="post-content">
+    <pre><code class="language-note" data-lang="note">NOTE: This page is marked as draft and is therefore still a work-in-progress. </code></pre>
+  </div>
+  {{ end }}
+
+  {{ if ne .Params.toc false }}
+  <h2>Table of Contents</h2>
+    {{ .TableOfContents }}
+  {{ end }}
+
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+
+  <div class="post-footer">
+    <!-- Default RelatedPages functionality provided by Hugo -->
+    {{ $pages := .Site.RegularPages.Related . | first 5 }}
+
+    <!-- If we are currently on a page, we look for posts that share the same first tag as the page -->
+    {{- if eq .Type "page" }}
+      {{ $posts := where .Site.Pages "Section" "posts" }}
+      {{ $firsttag := index .Params.tags 0 }}
+      {{ $taggedContent := (index .Site.Taxonomies.tags (lower $firsttag)).Pages }}
+      {{ $pages = intersect $posts $taggedContent | first 5 }}
+
+    <!-- If we are in a series, we look for all posts in the series -->
+    {{- else }}
+      {{ if .Params.series }}
+        {{ $posts := where .Site.Pages "Section" "posts" }}
+        {{ $series := index .Params.series 0 }}
+        {{ $seriesContent := (index .Site.Taxonomies.series (lower $series)).Pages }}
+        {{ $pages = intersect $posts $seriesContent}}
+      {{ end }}
+    {{- end }}
+
+    {{ if $pages }}
+      <br />
+      {{ partial "post_list.html" (dict "header" "Related Posts" "pages" $pages "parent" $) }}
+    {{ end }}
+  </div>
 {{ end }}

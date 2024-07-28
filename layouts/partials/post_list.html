@@ -1,0 +1,22 @@
+{{ $parent := .parent }}
+{{ if .header }}
+  <h2 class="section-header">{{ .header }}</h2>
+{{ end }}
+<ul class="posts-list">
+  {{ range .pages }}
+    <li class="posts-list-item">
+      {{ if eq . $parent }}
+        <span class="posts-list-item-this-page">This Page: </span>
+      {{ end }}
+      <a class="posts-list-item-title" href="{{ .Permalink }}">{{ partial "page_title.html" . }}</a>
+      <span class="posts-list-item-description">
+        {{ partial "icon.html" (dict "ctx" . "name" "calendar") }}
+        {{ .PublishDate.Format "Jan 2, 2006" }}
+        <span class="posts-list-item-separator">-</span>
+        {{ partial "icon.html" (dict "ctx" . "name" "clock") }}
+        {{ .ReadingTime }} min read
+      </span>
+      {{ .Summary }}
+    </li>
+  {{ end }}
+</ul>

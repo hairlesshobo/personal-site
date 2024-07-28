@@ -130,7 +130,6 @@ apt install helm
 You can technically skip this step, but I still like to manually pull the kube images before spinning up the node.
 
 ```bash
-# pull the kube images (this isn't strictly required, but )
 kubeadm config images pull
 ```
 
@@ -292,6 +291,7 @@ kubeadm join kubeadm.internal.example.com:6443 --token xtuiiu.14dd7db013f44672 \
 	--discovery-token-ca-cert-hash sha256:f22fad490b424613bed4e276b8e9d4f1e0ef0dd4744b48cbab9638b08da37971 \
 	--control-plane --certificate-key 64680a7065e441dc8f458e9c04e006c9fddc177aac7248159f2b8a7f1f602764
 ```
+- Don't forget to add all control plane nodes to the OPNsense load balancer so that requests are truly load balancer. In OPNsense you will need to add eah control plane to the "Real Servers" tab of the HAproxy config, and be sure to modify the backend service to include the real servers as part of the pool.
 
 ## Add worker nodes
 

@@ -16,14 +16,8 @@
     
     <br />
     <br />
-    <h2 class="section-header">Latest Posts</h2>
-    <div>
-      <ul class="posts-list">
-        {{ range where .Site.RegularPages.ByPublishDate.Reverse "Section" "posts" }}
-          {{ partial "post_list_item.html" (dict "context" . "parent" $) }}
-        {{ end }}
-      </ul>
-    </div>
+    {{ $pages := where .Site.RegularPages.ByPublishDate.Reverse "Section" "posts" }}
+    {{ partial "post_list.html" (dict "header" "Latest Posts" "pages" $pages "parent" $) }}
   </main>
 {{ end }}
 

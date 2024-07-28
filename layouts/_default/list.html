@@ -1,25 +1,22 @@
 {{ define "main" }}
-  <!-- <article> -->
-    {{ $pages := where .Paginator.Pages "Type" "==" "page" }}
+  {{ $pages := where .Paginator.Pages "Type" "==" "page" }}
 
-    <h1 class="section-header">{{ partial "page_title.html" . }}</h1>
+  <h1 class="section-header">{{ partial "page_title.html" . }}</h1>
 
-    {{ range $pages }}
-      <span>
-        {{ .Summary }}
-      </span>
-      <a class="read-more" href="{{ .Permalink }}">Read more...</a>
-    {{ end }}
-    {{- if ne (len $pages) 0 }}
-      <br />
-      <br />
-      <h2 class="section-header">Posts</h2>
-    {{- end }}
-    <ul class="posts-list">
-      {{ range where .Paginator.Pages "Type" "!=" "page" }}
-        {{ partial "post_list_item.html" (dict "context" . "parent" $) }}
-      {{ end }}
-    </ul>
-    {{ partial "pagination.html" $ }}
-  <!-- </article> -->
+  {{ range $pages }}
+    <span>
+      {{ .Summary }}
+    </span>
+    <a class="read-more" href="{{ .Permalink }}">Read more...</a>
+  {{ end }}
+  {{- if ne (len $pages) 0 }}
+    <br />
+    <br />
+    <h2 class="section-header">Posts</h2>
+  {{- end }}
+
+  {{ $pages := where .Paginator.Pages "Type" "!=" "page" }}
+  {{ partial "post_list.html" (dict "pages" $pages "parent" $) }}
+
+  {{ partial "pagination.html" $ }}
 {{ end }}
