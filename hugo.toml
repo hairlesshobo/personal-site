@@ -52,7 +52,8 @@ buildDrafts = true
     name = "Home Lab"
     url = "/tags/home-lab/"
     weight = 30
-    # [menu.main.params]
+    [menu.main.params]
+      break = true
     #   icon = "server"
 
   [[menu.main]]
@@ -87,7 +88,8 @@ buildDrafts = true
   description = 'Infrastructure and Linux Enthusiast'
   subtitle = 'meow?'
   avatar = 'profile_photo.png'
-  menu_item_separator = '<br />'
+  # menu_item_separator = '<br />'
+  menu_item_separator = '-'
   keywords = ['Steve Cross', 'hairlesshobo', 'foxhollow', 'self hosted']
 
   [[params.social]]
