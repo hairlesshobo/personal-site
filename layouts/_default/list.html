@@ -29,7 +29,7 @@
     {{ $posts = $posts.ByTitle }}
   {{ end }}
 
-  {{ partial "post_list.html" (dict "pages" $posts "parent" $) }}
+  {{ partial "post_list.html" (dict "pages" $posts "parent" $ ) }}
 
   {{ partial "pagination.html" $ }}
 {{ end }}

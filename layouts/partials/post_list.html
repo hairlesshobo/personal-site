@@ -9,14 +9,20 @@
         <span class="posts-list-item-this-page">This Page: </span>
       {{ end }}
       <a class="posts-list-item-title" href="{{ .Permalink }}">{{ partial "page_title.html" . }}</a>
-      <span class="posts-list-item-description">
-        {{ partial "icon.html" (dict "ctx" . "name" "calendar") }}
-        {{ .PublishDate.Format "Jan 2, 2006" }}
-        <span class="posts-list-item-separator">-</span>
-        {{ partial "icon.html" (dict "ctx" . "name" "clock") }}
-        {{ .ReadingTime }} min read
-      </span>
-      {{ .Summary }}
+      {{ if ne .Type "projects" }}
+        <span class="posts-list-item-description">
+          {{ partial "icon.html" (dict "ctx" . "name" "calendar") }}
+          {{ .PublishDate.Format "Jan 2, 2006" }}
+          <span class="posts-list-item-separator">-</span>
+          {{ partial "icon.html" (dict "ctx" . "name" "clock") }}
+          {{ .ReadingTime }} min read
+        </span>
+        {{ .Summary }}
+      {{ else }}
+        <div>
+          {{ .Description }}
+        </div>
+      {{ end }}
     </li>
   {{ end }}
 </ul>

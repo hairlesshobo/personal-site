@@ -1,6 +1,6 @@
 +++
 title = 'Bare-metal Kubernetes - Part 4: Load Balancer'
-slug = 'kube-cluster-load-balancer'
+slug = '04-load-balancer'
 date = "2024-07-28T12:00:00"
 tags = ['home lab', 'kubernetes', 'self hosted']
 series = ["Bare-metal Kubernetes"]
@@ -11,7 +11,7 @@ draft = false
 
 ## Introduction
 
-In the [previous article](/posts/kube-cluster-networking), I setup Calico as the CNI and enabled BGP routing via OPNsense.
+In the [previous article](/series/bare-metal-kubernetes/03-networking), I setup Calico as the CNI and enabled BGP routing via OPNsense.
 
 This article will outline the process that I followed to add load balancer support to my bare-metal kubernetes cluster. Typically, load balancer support is handled automatically in cloud-based environments such as AWS, Azure, GCP, etc by leveraging the cloud load balancers already available in the cloud provider. For example an EKS cluster in AWS would automatically provision ELB instances any time you request a load balancer in Kubernetes. In a bare-metal install, Kubernetes does not provide any mechanism for load balancers. This is where [MetalLB](https://metallb.io/) comes in to play. I will use MetalLB to provide load balancer support.
 
@@ -108,4 +108,4 @@ replicaset.apps/nginx-test-5774b4685c                     1         1         1 
 
 Believe it or not, that's all it takes to setup MetalLB on your Kube cluster. Any time you set `type: LoadBalancer` on a service, MetalLB will automatically create a load balancer for you.
 
-In the [next article](/posts/kube-cluster-external-dns), I will show you how to have Kubernetes automatically create a DNS entry in PowerDNS any time you add a load balancer. 
+In the [next article](/series/bare-metal-kubernetes/05-external-dns), I will show you how to have Kubernetes automatically create a DNS entry in PowerDNS any time you add a load balancer. 

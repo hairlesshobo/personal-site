@@ -1,6 +1,6 @@
 +++
 title = 'Bare-metal Kubernetes - Part 1: Overview'
-slug = 'kube-cluster-overview'
+slug = '01-overview'
 date = "2024-07-23"
 draft = false
 tags = ['home lab', 'kubernetes', 'self hosted']
@@ -35,4 +35,4 @@ Overall requirements:
 
 ## Summary
 
-In the [next article](/posts/kube-cluster-bootstrap), I will be begin prepping the nodes, creating the new Kube cluster and adding all of my nodes to it.
+In the [next article](/series/bare-metal-kubernetes/02-bootstrap), I will be begin prepping the nodes, creating the new Kube cluster and adding all of my nodes to it.

@@ -1,6 +1,6 @@
 +++
 title = 'Bare-metal Kubernetes - Part 2: Bootstrap'
-slug = 'kube-cluster-bootstrap'
+slug = '02-bootstrap'
 date = "2024-07-24"
 lastmod = "2024-07-27"
 draft = false
@@ -12,7 +12,7 @@ summary = 'Steps I followed to bootstrap my new Kubernetes cluster'
 
 ## Overview
 
-In the [previous article](/posts/kube-cluster-overview), I laid out the requirements and plan for my Kubernetes cluster build.
+In the [previous article](/series/bare-metal-kubernetes/01-overview), I laid out the requirements and plan for my Kubernetes cluster build.
 
 This article will outline the process I followed to bootstrap a brand new Kubernetes cluster from scratch, and subsequently add additional nodes to the cluster.
 
@@ -335,4 +335,4 @@ kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
 At this point, I have a running Kubernetes cluster with one or more control plane and/or worker nodes. 
 
-In the [next article](/posts/kube-cluster-networking), I will be setting up the network provider (CNI) and configuring OPNsense for BGP routing.
+In the [next article](/series/bare-metal-kubernetes/03-networking), I will be setting up the network provider (CNI) and configuring OPNsense for BGP routing.

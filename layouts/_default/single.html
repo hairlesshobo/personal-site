@@ -52,27 +52,28 @@
     <div class="post-footer">
       <!-- Default RelatedPages functionality provided by Hugo -->
       {{ $pages := .Site.RegularPages.Related . | first 5 }}
+      {{ $header := "Related Posts" }}
 
       <!-- If we are currently on a page, we look for posts that share the same first tag as the page -->
       {{- if eq .Type "page" }}
-        {{ $posts := where .Site.Pages "Section" "posts" }}
+        {{ $posts := where .Site.Pages "Section" "in" (slice "posts" "series" "projects" ) }}
         {{ $firsttag := index .Params.tags 0 }}
         {{ $taggedContent := (index .Site.Taxonomies.tags (lower $firsttag)).Pages }}
         {{ $pages = intersect $posts $taggedContent | first 5 }}
 
       <!-- If we are in a series, we look for all posts in the series -->
-      {{- else }}
-        {{ if .Params.series }}
-          {{ $posts := where .Site.Pages "Section" "posts" }}
+      {{- else if eq .Type "series" }}
+          {{ $posts := where .Site.Pages "Section" "series" }}
           {{ $series := index .Params.series 0 }}
           {{ $seriesContent := (index .Site.Taxonomies.series (lower $series)).Pages }}
-          {{ $pages = intersect $posts $seriesContent}}
-        {{ end }}
+          {{ $pages = intersect $posts $seriesContent }}
+          {{ $pages = $pages.ByPublishDate }}
+          {{ $header = "More In This Series" }}
       {{- end }}
 
       {{ if $pages }}
         <br />
-        {{ partial "post_list.html" (dict "header" "Related Posts" "pages" $pages "parent" $) }}
+        {{ partial "post_list.html" (dict "header" $header "pages" $pages "parent" $) }}
       {{ end }}
     </div>
   {{ end }}

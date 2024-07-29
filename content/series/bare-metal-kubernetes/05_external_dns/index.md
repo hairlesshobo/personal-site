@@ -1,6 +1,6 @@
 +++
 title = 'Bare-metal Kubernetes - Part 5: External DNS'
-slug = 'kube-cluster-external-dns'
+slug = '05-external-dns'
 date = "2024-07-28T14:00:00"
 tags = ['home lab', 'kubernetes', 'self hosted']
 series = ["Bare-metal Kubernetes"]
@@ -11,7 +11,7 @@ draft = true
 
 ## Introduction
 
-In the [previous article](/posts/kube-cluster-load-balancer), I setup MetalLB to enable load balancer support on the bare-metal kube cluster. 
+In the [previous article](/series/bare-metal-kubernetes/04-load-balancer), I setup MetalLB to enable load balancer support on the bare-metal kube cluster. 
 
 This article builds on that by enabling Kubernetes to automatically add DNS entries to an external DNS server, in this case, [PowerDNS](https://www.powerdns.com/). This is possible using the [external-dns](https://github.com/kubernetes-sigs/external-dns) tool.
 
@@ -195,5 +195,4 @@ kubectl apply -f external-dns-deployment.yaml
 
 ## Testing the system
 
-## Summary
-
+Coming soon..

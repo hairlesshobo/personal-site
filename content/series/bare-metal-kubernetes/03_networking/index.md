@@ -1,6 +1,6 @@
 +++
 title = 'Bare-metal Kubernetes - Part 3: Networking'
-slug = 'kube-cluster-networking'
+slug = '03-networking'
 date = "2024-07-27"
 lastmod = "2024-07-28"
 tags = ['home lab', 'kubernetes', 'self hosted']
@@ -12,7 +12,7 @@ draft = false
 
 ## Introduction
 
-In the [previous article](/posts/kube-cluster-bootstrap), I prepared my nodes, created the new kube cluster and added all my nodes to the cluster.
+In the [previous article](/series/bare-metal-kubernetes/02-bootstrap), I prepared my nodes, created the new kube cluster and added all my nodes to the cluster.
 
 This article will outline the process that I followed to setup Calico, the network provider, known in Kubernetes land as "Container Network Interface". 
 
@@ -22,7 +22,7 @@ So I want to first start off by saying that this portion was largely possible fo
 
 ## Overview
 
-When you are configuring the CNI for Kubernetes, you will need to define a few IP ranges. In [part 2](/posts/kube-cluster-bootstrap) we defined two of those network ranges already, the pod network CIDR block and the service CIDR block. Additionally, we need to define service external CIDR block and load balancer CIDR block. I have chosen the following CIDR blocks, feel free to change them but make sure you take note of the ranges you choose as you will need them below.
+When you are configuring the CNI for Kubernetes, you will need to define a few IP ranges. In [part 2](/series/bare-metal-kubernetes/02-bootstrap) we defined two of those network ranges already, the pod network CIDR block and the service CIDR block. Additionally, we need to define service external CIDR block and load balancer CIDR block. I have chosen the following CIDR blocks, feel free to change them but make sure you take note of the ranges you choose as you will need them below.
 
 | Use                      | CIDR         |
 |--------------------------|--------------|
@@ -242,4 +242,4 @@ PING 10.29.251.16 (10.29.251.16): 56 data bytes
 
 At this point, I have a running Kubernetes cluster with one or more control planes and/or worker nodes and a functioning network, with BGP routing provided by OPNsense and the Calico CNI.
 
-In the [next article](/posts/kube-cluster-load-balancer), I will be setting up the load balancer via MetalLB.
+In the [next article](/series/bare-metal-kubernetes/04-load-balancer), I will be setting up the load balancer via MetalLB.
