@@ -45,15 +45,20 @@ pre:has(code.language-note) {
     }
 }
 
-div.app-header-social>a>img {
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    margin-top: -0.125em;
-}
-
 span.app-header-title {
     color: $primary-color;
+    margin-bottom: 0.1em;
+}
+
+.app-header-social {
+    font-size: 1.7em;
+
+    margin-top: 0.1em;
+    margin-bottom: 0.4em;
+    
+    a:not(:hover) {
+        color: rgba($lightest-color, 0.7);
+    }
 }
 
 // table {
@@ -165,8 +170,8 @@ li.posts-list-item {
     .app-header-avatar {
         margin-top: 1rem;
         margin-left: 1rem;
-        max-width: 9.5rem;
-        max-height: 9.5rem;
+        max-width: 8.5rem;
+        max-height: 8.5rem;
         border-radius: 100%;
         border: .25rem solid $primary-color;
         float: left;
@@ -185,6 +190,7 @@ li.posts-list-item {
     }
 
     .app-header-social {
+        margin-top: 0.5em;
         font-size: 1.4em;
     }
 

@@ -67,7 +67,8 @@ buildDrafts = true
     name = "Article Series"
     url = "/series/"
     weight = 50
-    # [menu.main.params]
+    [menu.main.params]
+      break = true
     #   icon = "server"
 
   [[menu.main]]
