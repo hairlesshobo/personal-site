@@ -1,1 +1,1 @@
-{{ .Title }}{{ if eq .Draft true }} <i>[Draft]</i>{{ end }}
+{{ if eq .Type "projects" }}Project: {{ end }}{{ .Title }}{{ if eq .Draft true }} <i>[Draft]</i>{{ end }}
