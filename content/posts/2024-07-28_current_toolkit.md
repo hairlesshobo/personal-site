@@ -6,3 +6,5 @@ tags = ['tools']
 summary = 'Just a basic list of the various tech and tools I use as of July 2024'
 draft = true
 +++
+
+this?
