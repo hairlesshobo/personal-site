@@ -48,30 +48,32 @@
     {{ .Content }}
   </div>
 
-  <div class="post-footer">
-    <!-- Default RelatedPages functionality provided by Hugo -->
-    {{ $pages := .Site.RegularPages.Related . | first 5 }}
+  {{ if ne .Type "projects" }}
+    <div class="post-footer">
+      <!-- Default RelatedPages functionality provided by Hugo -->
+      {{ $pages := .Site.RegularPages.Related . | first 5 }}
 
-    <!-- If we are currently on a page, we look for posts that share the same first tag as the page -->
-    {{- if eq .Type "page" }}
-      {{ $posts := where .Site.Pages "Section" "posts" }}
-      {{ $firsttag := index .Params.tags 0 }}
-      {{ $taggedContent := (index .Site.Taxonomies.tags (lower $firsttag)).Pages }}
-      {{ $pages = intersect $posts $taggedContent | first 5 }}
-
-    <!-- If we are in a series, we look for all posts in the series -->
-    {{- else }}
-      {{ if .Params.series }}
+      <!-- If we are currently on a page, we look for posts that share the same first tag as the page -->
+      {{- if eq .Type "page" }}
         {{ $posts := where .Site.Pages "Section" "posts" }}
-        {{ $series := index .Params.series 0 }}
-        {{ $seriesContent := (index .Site.Taxonomies.series (lower $series)).Pages }}
-        {{ $pages = intersect $posts $seriesContent}}
-      {{ end }}
-    {{- end }}
+        {{ $firsttag := index .Params.tags 0 }}
+        {{ $taggedContent := (index .Site.Taxonomies.tags (lower $firsttag)).Pages }}
+        {{ $pages = intersect $posts $taggedContent | first 5 }}
 
-    {{ if $pages }}
-      <br />
-      {{ partial "post_list.html" (dict "header" "Related Posts" "pages" $pages "parent" $) }}
-    {{ end }}
-  </div>
+      <!-- If we are in a series, we look for all posts in the series -->
+      {{- else }}
+        {{ if .Params.series }}
+          {{ $posts := where .Site.Pages "Section" "posts" }}
+          {{ $series := index .Params.series 0 }}
+          {{ $seriesContent := (index .Site.Taxonomies.series (lower $series)).Pages }}
+          {{ $pages = intersect $posts $seriesContent}}
+        {{ end }}
+      {{- end }}
+
+      {{ if $pages }}
+        <br />
+        {{ partial "post_list.html" (dict "header" "Related Posts" "pages" $pages "parent" $) }}
+      {{ end }}
+    </div>
+  {{ end }}
 {{ end }}

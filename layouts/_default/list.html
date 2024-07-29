@@ -25,7 +25,10 @@
   <!-- If we are listing a series, reverse the order so it shows up in proper order -->
   {{ if eq .Type "series" }}
     {{ $posts = $posts | collections.Reverse }}
+  {{ else if eq .Type "projects" }}
+    {{ $posts = $posts.ByTitle }}
   {{ end }}
+
   {{ partial "post_list.html" (dict "pages" $posts "parent" $) }}
 
   {{ partial "pagination.html" $ }}

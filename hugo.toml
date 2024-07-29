@@ -56,10 +56,16 @@ buildDrafts = true
     #   icon = "server"
 
   [[menu.main]]
+    identifier = "projects"
+    name = "Projects"
+    url = "/projects/"
+    weight = 40
+
+  [[menu.main]]
     identifier = "series"
-    name = "Post Series"
+    name = "Article Series"
     url = "/series/"
-    weight = 30
+    weight = 50
     # [menu.main.params]
     #   icon = "server"
 
@@ -67,7 +73,7 @@ buildDrafts = true
     identifier = "tags"
     name = "All Tags"
     url = "/tags"
-    weight = 40
+    weight = 100
     # [menu.main.params]
     #   icon = "list"
 
@@ -123,7 +129,7 @@ buildDrafts = true
 
   [[related.indices]]
     applyFilter = false
-    cardinalityThreshold = 0
+    cardinalityThreshold = 1
     name = 'keywords'
     pattern = ''
     toLower = false
