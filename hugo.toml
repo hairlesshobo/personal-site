@@ -4,6 +4,7 @@ title = 'Infrastructure and Linux Enthusiast | Steve Cross'
 theme = "m10c"
 enableGitInfo = true
 buildDrafts = true
+timeout = 120
 
 [frontmatter]
   date = ["date", "publishDate", "lastmod"]
