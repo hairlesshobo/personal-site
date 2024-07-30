@@ -16,5 +16,4 @@ show_related = false
 
 These are a collection of photos I took with my infrared modified EOS 600D. 
 
-## Gallery
 {{< image-gallery gallery_dir="/img/infrared" >}}

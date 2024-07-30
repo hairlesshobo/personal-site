@@ -16,5 +16,4 @@ show_related = false
 
 These are a collection of photos I took with my microscope. Majority were pre-created slides that I simply imaged, but a couple were things I found and prepared myself.
 
-## Gallery
 {{< image-gallery gallery_dir="/img/photomicrography" >}}

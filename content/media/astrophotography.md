@@ -16,5 +16,4 @@ show_related = false
 
 These are a collection of photos I took with my telescope(s). 
 
-## Gallery
 {{< image-gallery gallery_dir="/img/astrophotography" >}}

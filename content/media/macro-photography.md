@@ -16,5 +16,4 @@ show_related = false
 
 This is a collection of macro photographs I've taken.
 
-## Gallery
 {{< image-gallery gallery_dir="/img/macro" >}}

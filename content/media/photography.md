@@ -16,5 +16,4 @@ show_related = false
 
 This is a collection of assorted photos I've taken over the years.
 
-## Gallery
 {{< image-gallery gallery_dir="/img/photography" >}}
