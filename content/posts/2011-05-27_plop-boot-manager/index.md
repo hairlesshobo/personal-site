@@ -2,7 +2,7 @@
 title = 'Very Useful Utility: Plop Boot Manager'
 date = 2011-05-27T10:00:02-04:00
 draft = false
-tags = ['utiities']
+tags = ['utilities']
 +++
 
 A couple years back I stumbled across a very handy utility written by Elmar Hanlhofer called [Plop Boot Manager](http://www.plop.at/en/bootmanager.html). As the name suggests, it is actually a very small boot loader that is packed with uncommon features. Just a couple key features: [^1]

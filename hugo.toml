@@ -74,7 +74,7 @@ timeout = 120
 
 [[menu.main]]
     identifier = "media"
-    name = "Media"
+    name = "Media Gallery"
     url = "/media/"
     weight = 60
     [menu.main.params]

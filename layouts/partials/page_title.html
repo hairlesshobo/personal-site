@@ -1,1 +1,9 @@
-{{ if eq .Type "projects" }}Project: {{ end }}{{ .Title }}{{ if eq .Draft true }} <i>[Draft]</i>{{ end }}
+{{- $type := (printf "%T" .) }}
+{{- $ctx := . }}
+{{- $allow_prefix := true }}
+{{- if eq $type "map[string]interface {}" }}
+{{- $ctx = .ctx }}
+{{- $allow_prefix = eq .allow_prefix true }}
+{{- end }}
+{{- $need_prefix := and (eq $ctx.Type "projects") (ne .IsSection true) }}
+{{- if and (eq $need_prefix true) (eq $allow_prefix true) }}Project: {{- end }}{{ $ctx.Title }}{{- if eq $ctx.Draft true -}} <i>[Draft]</i>{{- end }}

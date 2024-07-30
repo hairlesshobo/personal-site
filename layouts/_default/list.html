@@ -1,19 +1,18 @@
-{{ define "main" }}
+{{- define "main" }}
   <article>
-    {{ $pages := where .Paginator.Pages "Type" "==" "page" }}
-
+    {{- $pages := where .Paginator.Pages "Type" "==" "page" }}
     <h1 class="section-header">{{ partial "page_title.html" . }}</h1>
 
-    {{ if eq .Type "series" }}
+    {{- if eq .Type "series" }}
       {{ .Description }}
-    {{ end }}
+    {{- end }}
 
-    {{ range first 1 $pages }}
+    {{- range first 1 $pages }}
       <span>
         {{ .Summary }}
       </span>
       <a class="read-more" href="{{ .Permalink }}">Read more...</a>
-    {{ end }}
+    {{- end }}
 
     {{- if or (ne (len $pages) 0) (eq .Type "series") }}
       <br />
@@ -21,17 +20,15 @@
       <h2 class="section-header">Posts</h2>
     {{- end }}
 
-    {{ $posts := where .Paginator.Pages "Type" "!=" "page" }}
-    
+    {{- $posts := where .Paginator.Pages "Type" "!=" "page" }}
     <!-- If we are listing a series, reverse the order so it shows up in proper order -->
-    {{ if eq .Type "series" }}
-      {{ $posts = $posts | collections.Reverse }}
-    {{ else if eq .Type "projects" }}
-      {{ $posts = $posts.ByTitle }}
-    {{ end }}
-
+    {{- if eq .Type "series" }}
+      {{- $posts = $posts | collections.Reverse }}
+    {{- else if eq .Type "projects" }}
+      {{- $posts = $posts.ByTitle }}
+    {{- end }}
     {{ partial "post_list.html" (dict "pages" $posts "parent" $ ) }}
 
-    {{ partial "pagination.html" $ }}
+    {{- partial "pagination.html" $ -}}
   </article>
-{{ end }}
+{{- end }}

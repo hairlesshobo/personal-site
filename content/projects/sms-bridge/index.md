@@ -95,10 +95,10 @@ curl --request POST \
     }'
 ```
 
-# LICENSE
+## License
 
 This utility is licensed under the MIT license, see the LICENSE file for more details
 
-# Links
+## Links
 
 [Project on GitHub](https://github.com/hairlesshobo/sms_bridge)

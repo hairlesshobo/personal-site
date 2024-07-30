@@ -2,23 +2,28 @@
 <html lang="{{ .Site.LanguageCode | default "en-us" }}">
   <head>
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} // {{ .Site.Title }}{{ end }}</title>
+
     <link rel="shortcut icon" href="{{ .Site.Params.favicon | default "/favicon.ico" }}" />
+    {{- with .OutputFormats.Get "rss" }}
+    {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+    {{- end }}
+
     <meta charset="utf-8" />
     {{ hugo.Generator }}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="{{ .Site.Params.author  }}" />
     <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ .Description }}{{ end }}" />
-    {{ $keywords := uniq (union (.Site.Params.keywords | default slice) (.Params.Keywords)) }}
-    {{ if gt (len $keywords) 0 }}
-      <meta name="keywords" content="{{ delimit $keywords ", " }}">
-    {{ end }}
-    {{ $style := resources.Get "css/main.scss" | resources.ExecuteAsTemplate "css/main.scss" . | resources.ToCSS | resources.Minify | resources.Fingerprint -}}
+    {{- $keywords := uniq (union (.Site.Params.keywords | default slice) (.Params.Keywords)) }}
+    {{- if gt (len $keywords) 0 }}
+    <meta name="keywords" content="{{ delimit $keywords ", " }}">
+    {{- end }}
+    {{- $style := resources.Get "css/main.scss" | resources.ExecuteAsTemplate "css/main.scss" . | resources.ToCSS | resources.Minify | resources.Fingerprint -}}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
 
-    {{ $lightboxCss := resources.Get "css/lightbox.css" | resources.Minify | resources.Fingerprint -}}
+    {{- $lightboxCss := resources.Get "css/lightbox.css" | resources.Minify | resources.Fingerprint -}}
     <link rel="stylesheet" href="{{ $lightboxCss.RelPermalink }}">
 
-    {{ $lightboxJs := resources.Get "js/lightbox.js" | minify | fingerprint }}
+    {{- $lightboxJs := resources.Get "js/lightbox.js" | minify | fingerprint }}
     <script type="text/javascript" src="{{ $lightboxJs.RelPermalink }}"></script>
 
     <script>
@@ -30,13 +35,9 @@
       })
     </script>
     
-    {{ with .OutputFormats.Get "rss" -}}
-    {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
-    {{ end }}
-
-    {{ template "_internal/google_analytics.html" . }}
-    {{ template "_internal/twitter_cards.html" . }}
-    {{ template "_internal/opengraph.html" . }}
+    {{- template "_internal/google_analytics.html" . -}}
+    {{- template "_internal/twitter_cards.html" . -}}
+    {{- template "_internal/opengraph.html" . -}}
 
   </head>
   <body>
@@ -46,24 +47,24 @@
 
       {{- with .Site.Params.social }}
       <div class="app-header-social">
-        {{ range . }}
+        {{- range . }}
           <a href="{{ .url }}" target="_blank" rel="noreferrer noopener me">
             {{ partial "icon.html" (dict "ctx" $ "name" .icon "title" .name) }}
           </a>
-        {{ end }}
+        {{- end }}
       </div>
       {{- end }}
       
-      {{ $last_had_break := false }}
+      {{- $last_had_break := false }}
       {{- with .Site.Menus.main }}
       <nav class="app-header-menu">
         {{- range $key, $item := . }}
           {{- if and (ne $key 0) (eq $last_had_break false) }}
             {{ $.Site.Params.menu_item_separator | default " - " | safeHTML }}
-          {{ end }}
+          {{- end }}
           {{- with $item.Params.Icon }}
             {{ partial "icon.html" (dict "ctx" $ "name" $item.Params.Icon "title" $item.Name ) }}
-          {{ end }}
+          {{- end }}
           <a class="app-header-menu-item" href="{{ $item.URL }}">{{ $item.Name }}</a>
           {{- if eq $item.Params.Break true }}
             <br />
