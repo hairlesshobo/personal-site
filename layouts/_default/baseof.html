@@ -14,6 +14,22 @@
     {{ end }}
     {{ $style := resources.Get "css/main.scss" | resources.ExecuteAsTemplate "css/main.scss" . | resources.ToCSS | resources.Minify | resources.Fingerprint -}}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
+
+    {{ $lightboxCss := resources.Get "css/lightbox.css" | resources.Minify | resources.Fingerprint -}}
+    <link rel="stylesheet" href="{{ $lightboxCss.RelPermalink }}">
+
+    {{ $lightboxJs := resources.Get "js/lightbox.js" | minify | fingerprint }}
+    <script type="text/javascript" src="{{ $lightboxJs.RelPermalink }}"></script>
+
+    <script>
+      lightbox.option({
+        'resizeDuration': 0,
+        'fadeDuration': 0,
+        'imageFadeDuration': 0,
+        'wrapAround': true
+      })
+    </script>
+    
     {{ with .OutputFormats.Get "rss" -}}
     {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
     {{ end }}

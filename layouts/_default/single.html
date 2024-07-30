@@ -48,7 +48,7 @@
     {{ .Content }}
   </div>
 
-  {{ if ne .Type "projects" }}
+  {{ if and (ne .Type "projects") (ne .Params.show_related false) }}
     <div class="post-footer">
       <!-- Default RelatedPages functionality provided by Hugo -->
       {{ $pages := .Site.RegularPages.Related . | first 5 }}

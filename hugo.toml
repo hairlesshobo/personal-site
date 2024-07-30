@@ -57,16 +57,25 @@ buildDrafts = true
     #   icon = "server"
 
   [[menu.main]]
+    identifier = "series"
+    name = "Series"
+    url = "/series/"
+    weight = 40
+    [menu.main.params]
+      break = false
+    #   icon = "server"
+
+  [[menu.main]]
     identifier = "projects"
     name = "Projects"
     url = "/projects/"
-    weight = 40
-
-  [[menu.main]]
-    identifier = "series"
-    name = "Article Series"
-    url = "/series/"
     weight = 50
+
+[[menu.main]]
+    identifier = "media"
+    name = "Media"
+    url = "/media/"
+    weight = 60
     [menu.main.params]
       break = true
     #   icon = "server"
