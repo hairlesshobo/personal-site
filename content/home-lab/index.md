@@ -28,20 +28,20 @@ Pictures below show the current state of the lab. This is without a doubt the cl
 
 * router1: Primary router
   * OPNsense
-  * Custom build: AMD A8-3850 / 8G DDR3 
+  * Custom build: AMD A8-3850 / 8GG DDR3 
   * 2u rackmount case
   * Intel X550-T2 dual 10G RJ45 
 
 * router2: Failover router
   * OPNsense
-  * Lenovo m93p: Intel i7-4765T / 16GB DDR3
+  * Lenovo m93p: Intel i7-4765T / 16GBG DDR3
   * USFF machine on 1u rack shelf
 
 * starfox: Primary server
   * Debian
-  * Custom build: AMD AMD Ryzen 7 5700G / 64G DDR4
+  * Custom build: AMD AMD Ryzen 7 5700G / 64GG DDR4
   * 4u rackmount case [link](https://www.rosewill.com/rosewill-rsv-l4412u-black/p/9SIA072GJ92847)
-  * Nvidia RTX 3060 12G [link](https://www.pny.com/geforce-rtx-3060-12gb-xlr8-gaming-revel-epic-x-rgb-df)
+  * Nvidia RTX 3060 12GB [link](https://www.pny.com/geforce-rtx-3060-12gb-xlr8-gaming-revel-epic-x-rgb-df)
   * Intel X520-SR2 dual 10G SFP+ 
   * 6x 6TB WD Red Plus w/ OpenZFS
 
