@@ -28,10 +28,11 @@ Overall requirements:
 ## Plan
 
 * Deploy a full instance of Kubernetes using [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/)
-* Persistent, distributed storage provided by [Ceph](https://docs.ceph.com/en/reef/start/) so that pods can easily migrate to other nodes without manual intervention
-* Use [external-dns](https://github.com/kubernetes-sigs/external-dns) with the powerdns plugin to enable automatic DNS updates. 
 * Use [Calico](https://docs.tigera.io/calico/latest/about/) as the CNI for Kubernetes so that I can easily setup BGP routing from my existing OPNsense routers to easily expose internal kubernetes IP addresses to my LAN
+* Use [MetalLB](https://metallb.io/) to provide automatic load balancer creation for services
+* Use [external-dns](https://github.com/kubernetes-sigs/external-dns) with the powerdns plugin to enable automatic DNS updates. 
 * Use [csi-driver-smb](https://github.com/kubernetes-csi/csi-driver-smb) to allow mounting of CIFS shares to pods
+* Persistent, distributed storage provided by [Ceph](https://docs.ceph.com/en/reef/start/) so that pods can easily migrate to other nodes without manual intervention
 
 ## Summary
 

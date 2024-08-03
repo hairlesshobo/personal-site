@@ -6,7 +6,7 @@ tags = ['home lab', 'kubernetes', 'self hosted']
 series = ["Bare-metal Kubernetes"]
 keywords = ['home lab', 'kubernetes', 'self hosted']
 summary = 'How to enable automatic external DNS update support on my bare-metal Kubernetes cluster'
-draft = true
+draft = false
 +++
 
 ## Introduction
@@ -193,6 +193,85 @@ spec:
 kubectl apply -f external-dns-deployment.yaml
 ```
 
+Once you have this setup, any time you set the `metadata.annotation.external-dns.alpha.kubernetes.io/hostname` key on a service, that provided domain (fqdn) will be set automatically in PowerDNS using external-dns.
+
 ## Testing the system
 
-Coming soon..
+A quick way to test that the DNS is properly being updated in PowerDNS, you can spin up a new nginx instance, or update the one we used in the [previous article](/series/bare-metal-kubernetes/04-load-balancer). Update the `nginx-test.yaml` file we created previously with the following contents, updating the `metadata.annotation.external-dns.alpha.kubernetes.io/hostname` value with the DNS name you want assigned to this service.
+
+```yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-test
+  labels:
+    app: nginx-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-test
+  template:
+    metadata:
+      labels:
+        app: nginx-test
+    spec:
+      containers:
+      - image: nginx
+        name: nginx-test
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-test
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: nginx_test.kube.internal.example.com ## make sure to change this to your domain
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: nginx-test
+  type: LoadBalancer
+```
+
+After you create and edit the file, apply it:
+
+```bash
+kubectl apply -f nginx-test.yaml
+```
+
+Give it a minute to deploy and check the status with `kubectl get svc nginx-test` to make sure its running.
+
+I then recommend checking the PowerDNS zone to see if the record `nginx-test` created successfully. I do this using the PowerDNS Admin GUI, but you can also query the zone with this command:
+
+```bash
+pdnsutil list-zone kube.internal.example.com | grep nginx_test
+```
+
+And you should see something similar to the following output:
+
+```plaintext
+a-nginx_test.kube.internal.example.com	300	IN	TXT	"heritage=external-dns,external-dns/owner=kubernetes,external-dns/resource=service/default/nginx-test"
+nginx_test.kube.internal.example.com	300	IN	A	10.31.0.1
+nginx_test.kube.internal.example.com	300	IN	TXT	"heritage=external-dns,external-dns/owner=kubernetes,external-dns/resource=service/default/nginx-test"
+```
+
+If you see something like this then, assuming your internal DNS zone is configured correctly for local resolution, you should be able to access the nginx service, via load balancer and automatic DNS at http://nginx_test.kube.internal.example.com
+
+## Troubleshooting
+
+I won't go too far in depth about how to troubleshoot if it doesn't work, but I found the most useful thing was this command:
+
+```bash
+kubectl -n external-dns logs deployments/external-dns
+```
+
+This will pull the logs for the running external-dns pod. Check through these logs for any error messages. When I was first setting it up, it was super easy to troubleshoot using the provided logs.
+
+## Summary
+
+You should now have automatic DNS updates setup successfully in your kube cluster. Just remember that you must provide a `metadata.annotation.external-dns.alpha.kubernetes.io/hostname` value so that external-dns knows what the name of DNS record should be.
+
+In the next article (coming soon). I will cover using [csi-driver-smb](https://github.com/kubernetes-csi/csi-driver-smb) to enable mounting existing CIFS shares to one or more pods.
