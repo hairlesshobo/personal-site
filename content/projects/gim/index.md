@@ -53,5 +53,5 @@ Copyright (c) 2024 Steve Cross <flip@foxhollow.cc>
 
 ## Links
 
-[Project on GitHub](https://github.com/hairlesshobo/gim/)
-[Project Homepage](https://www.foxhollow.cc/projects/gim/)
+- [Project on GitHub](https://github.com/hairlesshobo/gim/)
+- [Project Homepage](https://www.foxhollow.cc/projects/gim/)
