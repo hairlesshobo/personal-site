@@ -1,6 +1,6 @@
 +++
-title = 'gim (aka go-import-media)'
-slug = 'gim'
+title = 'ccmm (Connection Church Media Manager)'
+slug = 'ccmm'
 date = "2024-10-22"
 lastmod = "2024-11-01"
 draft = true
@@ -12,6 +12,8 @@ toc = false
 +++
 
 # gim
+
+yes, i know i keep renaming this thing because the scope and plan keeps changing by the day. for now, its ccmm.. more to come.
 
 ## Introduction
 
