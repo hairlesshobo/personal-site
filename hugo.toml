@@ -39,14 +39,18 @@ timeout = 120
     name = "Home"
     url = "/"
     weight = 10
+    [menu.main.params]
+      break = true
+      icon = "home"
 
   [[menu.main]]
     identifier = "about"
     name = "About Me"
     url = "/about-me"
     weight = 20
-    # [menu.main.params]
-    #   icon = "user"
+    [menu.main.params]
+      break = true
+      icon = "user"
 
   [[menu.main]]
     identifier = "homelab"
@@ -55,22 +59,25 @@ timeout = 120
     weight = 30
     [menu.main.params]
       break = true
-    #   icon = "server"
+      icon = "server"
 
   [[menu.main]]
     identifier = "series"
-    name = "Series"
+    name = "Article Series"
     url = "/series/"
     weight = 40
     [menu.main.params]
-      break = false
-    #   icon = "server"
+      break = true
+      icon = "book"
 
   [[menu.main]]
     identifier = "projects"
     name = "Projects"
     url = "/projects/"
     weight = 50
+    [menu.main.params]
+      break = true
+      icon = "tool"
 
 [[menu.main]]
     identifier = "media"
@@ -79,15 +86,51 @@ timeout = 120
     weight = 60
     [menu.main.params]
       break = true
-    #   icon = "server"
+      icon = "image"
+
+  [[menu.main]]
+    identifier = "blank1"
+    name = " "
+    url = ""
+    weight = 70
+    [menu.main.params]
+      break = true
+      # icon = "image"
+
+  [[menu.main]]
+    identifier = "weather-station"
+    weight = 80
+    name = "Weather Station"
+    url = "https://weather.foxhollow.cc/"
+    [menu.main.params]
+      break = true
+      icon = "cloud-lightning"
+
+  [[menu.main]]
+    identifier = "allsky-camera"
+    weight = 90
+    name = "All-Sky Camera"
+    url = "https://allsky.foxhollow.cc/"
+    [menu.main.params]
+      break = true
+      icon = "moon"
+
+  [[menu.main]]
+    identifier = "blank2"
+    weight = 100
+    name = " "
+    url = ""
+    [menu.main.params]
+      break = true
+      # icon = "image"
 
   [[menu.main]]
     identifier = "tags"
     name = "All Tags"
     url = "/tags"
-    weight = 100
-    # [menu.main.params]
-    #   icon = "list"
+    weight = 110
+    [menu.main.params]
+      icon = "list"
 
 [module]
   [[module.imports]]
@@ -96,22 +139,22 @@ timeout = 120
 [params]
   author = 'Steve Cross'
   header_title = 'Steve Cross'
-  description = 'Infrastructure and Linux Enthusiast'
+  description = 'Astronomy, Weather, Audio, Infrastructure, Linux, Amateur Radio'
   subtitle = 'meow?'
   avatar = 'profile_photo.png'
   # menu_item_separator = '<br />'
   menu_item_separator = '-'
   keywords = ['Steve Cross', 'hairlesshobo', 'foxhollow', 'self hosted']
 
-  [[params.social]]
-    icon = "github"
-    name = "Github"
-    url = "https://github.com/hairlesshobo"
+  # [[params.social]]
+  #   icon = "cloud-lightning"
+  #   name = "Weather Station"
+  #   url = "https://weather.foxhollow.cc/"
 
-  [[params.social]]
-    icon = "linkedin"
-    name = "Linkedin Profile"
-    url = "https://www.linkedin.com/in/steveacross/"
+  # [[params.social]]
+  #   icon = "moon"
+  #   name = "All-Sky Camera"
+  #   url = "https://allsky.foxhollow.cc/"
 
   [[params.social]]
     icon = "sunset"
@@ -123,6 +166,16 @@ timeout = 120
     name = "Amateur Radio Site"
     url = "https://www.kn4goi.net/"
 
+  [[params.social]]
+    icon = "github"
+    name = "Github"
+    url = "https://github.com/hairlesshobo"
+
+  [[params.social]]
+    icon = "linkedin"
+    name = "Linkedin Profile"
+    url = "https://www.linkedin.com/in/steveacross/"
+  
   [[params.social]]
     icon = "tokenring"
     name = "The Token Ring webring"
